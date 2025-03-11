@@ -24,10 +24,10 @@ int main(int ac, char **av) {
   render(&map, &camera, &mlx);
 
   // Hook para user-input
-  mlx_key_hook(mlx.win, handle_key_events, &fdf);
+  mlx_hook(mlx.win, 2, 1L << 0, handle_key_events, &fdf);
   // Hook para cerrar la ventana
   mlx_key_hook(mlx.win, handle_keypress, &camera);
-  mlx_hook(mlx.win, 17, 1, close_window, mlx.mlx);
+  /*mlx_hook(mlx.win, 17, 1, close_window, mlx.mlx);*/
   // Hook para manejar
   /*mlx_hook(mlx.win, 2, 1, handle_keypress, mlx.mlx);*/
   mlx_loop(mlx.mlx);
