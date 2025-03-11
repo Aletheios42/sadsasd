@@ -38,15 +38,21 @@ t_pixel proj_iso(t_point point, int z_scale, int z_range[2]);
 t_pixel proj_circular(t_point point, int z_scale, int z_range[2]);
 t_pixel proj_orthogonal(t_point point, int z_scale, int z_range[2]);
 
+// camera.c
+int camera_key_hook(int keycode, t_cam *cam);
+int handle_key_events(int keycode, t_fdf *fdf);
+
 // print.c
 void print_int_array(int *arr, int size);
 void print_projected_map(t_pixel **mesh, t_map map);
 void print_original_map(t_map map);
 
 // malloc.c
+void init_fdf(t_fdf *fdf, t_map *map, t_cam *cam, t_mlx *mlx);
 int realloc_cols(char *line, int **col, int rows);
 int realloc_t_point(t_point ***coors, int rows, int ncols);
 int malloc_mesh(t_pixel ***mesh, int rows, int *cols);
+// free.c
 void ft_free_map(t_map *map);
 
 // utils.c

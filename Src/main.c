@@ -1,6 +1,7 @@
 #include "../Inc/fdf.h"
 
 int main(int ac, char **av) {
+  t_fdf fdf;
   t_map map;
   t_mlx mlx;
   t_cam camera;
@@ -19,8 +20,11 @@ int main(int ac, char **av) {
 
   init_camera(&camera);
 
+  init_fdf(&fdf, &map, &camera, &mlx);
   render(&map, &camera, &mlx);
 
+  // Hook para user-input
+  mlx_key_hook(mlx.win, handle_key_events, &fdf);
   // Hook para cerrar la ventana
   mlx_key_hook(mlx.win, handle_keypress, &camera);
   mlx_hook(mlx.win, 17, 1, close_window, mlx.mlx);

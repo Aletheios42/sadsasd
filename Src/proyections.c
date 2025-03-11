@@ -5,14 +5,29 @@ int interpolColor(int height, int z_range[2]) {
   int min_height = z_range[0];
   int max_height = z_range[1];
 
+  // Handle the case where min and max are the same to avoid division by zero
   if (max_height == min_height)
     return MIN_COLOR;
 
+  // Calculate the normalized position of height within the range [0.0, 1.0]
   double factor = ((double)height - (double)min_height) /
                   ((double)max_height - (double)min_height);
-  return MIN_COLOR + (int)(factor * (MAX_COLOR - MIN_COLOR));
-}
 
+  // Calculate the interpolated color
+  int r_min = (MIN_COLOR >> 16) & 0xFF;
+  int g_min = (MIN_COLOR >> 8) & 0xFF;
+  int b_min = MIN_COLOR & 0xFF;
+
+  int r_max = (MAX_COLOR >> 16) & 0xFF;
+  int g_max = (MAX_COLOR >> 8) & 0xFF;
+  int b_max = MAX_COLOR & 0xFF;
+
+  int r = r_min + (int)(factor * (r_max - r_min));
+  int g = g_min + (int)(factor * (g_max - g_min));
+  int b = b_min + (int)(factor * (b_max - b_min));
+
+  return (r << 16) | (g << 8) | b;
+}
 // Fórmula isométrica:
 //   x' = (x - y) * cos(30°)
 //   y' = (x + y) * sin(30°) - height

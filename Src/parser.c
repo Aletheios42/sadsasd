@@ -13,9 +13,9 @@ void set_z_range(t_map *map) {
   while (++i < map->rows) {
     j = -1;
     while (++j < map->cols[i]) {
-      if (map->coors[i][j].height < max)
+      if (map->coors[i][j].height > max)
         max = map->coors[i][j].height;
-      if (map->coors[i][j].height > min)
+      if (map->coors[i][j].height < min)
         min = map->coors[i][j].height;
     }
   }

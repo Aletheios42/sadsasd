@@ -1,21 +1,14 @@
 #include "../Inc/fdf.h"
 
-void ft_free_map(t_map *map) {
-  int i;
-
-  if (!map)
-    return;
-  if (map->coors) {
-    for (i = 0; i < map->rows; i++) {
-      if (map->coors[i])
-        free(map->coors[i]);
-    }
-    free(map->coors);
-  }
-  if (map->cols)
-    free(map->cols);
+void init_fdf(t_fdf *fdf, t_map *map, t_cam *cam, t_mlx *mlx) {
+  (*fdf).mlx = mlx;
+  (*fdf).cam = cam;
+  (*fdf).map = map;
 }
-
+void init_camera(t_cam *camera) {
+  ft_memset(camera, 0, sizeof(t_cam));
+  camera->scale_factor = 1;
+}
 int malloc_mesh(t_pixel ***mesh, int rows, int *cols) {
   int i;
 

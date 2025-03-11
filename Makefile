@@ -33,12 +33,14 @@ SRC_FILES   = main.c 			\
                parser.c 		\
 		mlx.c			\
 		malloc.c		\
-		camera.c		\
 		render.c		\
 		draw.c			\
+		free.c			\
 		proyections.c		\
+		hooks.c			\
 		print.c			\
 		utils.c			
+
 SRC         = $(addprefix $(SRC_DIR), $(SRC_FILES))
 #automaton.c 	\#
 

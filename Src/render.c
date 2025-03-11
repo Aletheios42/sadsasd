@@ -57,6 +57,24 @@ void scale_and_center_mesh(t_pixel ***mesh, t_map *map) {
   }
 }
 
+void apply_cam_to_mesh(t_pixel ***mesh, t_cam *camera, t_map *map) {
+  int i, j;
+
+  // Apply rotation and translation transformations
+  for (i = 0; i < map->rows; i++) {
+    for (j = 0; j < map->cols[i]; j++) {
+      // Apply rotations (if implemented)
+      // Apply scaling
+      (*mesh)[i][j].x = (*mesh)[i][j].x * camera->scale_factor;
+      (*mesh)[i][j].y = (*mesh)[i][j].y * camera->scale_factor;
+
+      // Apply translation
+      (*mesh)[i][j].x += camera->offset[0];
+      (*mesh)[i][j].y += camera->offset[1];
+    }
+  }
+}
+
 void apply_perspective(t_pixel ***mesh, t_cam *camera, t_map *map) {
   int i;
   int j;
@@ -85,7 +103,7 @@ int render(t_map *map, t_cam *camera, t_mlx *mlx) {
   malloc_mesh(&mesh, map->rows, map->cols);
   apply_perspective(&mesh, camera, map);
   scale_and_center_mesh(&mesh, map);
-
+  apply_cam_to_mesh(&mesh, camera, map);
   print_projected_map(mesh, *map);
 
   // Dibujar líneas horizontales
