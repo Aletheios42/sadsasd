@@ -5,10 +5,14 @@ void init_fdf(t_fdf *fdf, t_map *map, t_cam *cam, t_mlx *mlx) {
   (*fdf).cam = cam;
   (*fdf).map = map;
 }
+
 void init_camera(t_cam *camera) {
   ft_memset(camera, 0, sizeof(t_cam));
-  camera->scale_factor = 1;
+  camera->scale_factor = 1.0;
+  camera->scale_z = 1.0;
+  camera->projection = 0;
 }
+
 int malloc_mesh(t_pixel ***mesh, int rows, int *cols) {
   int i;
 

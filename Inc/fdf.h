@@ -31,6 +31,7 @@ int close_window(t_mlx *mlx);
 int render(t_map *map, t_cam *camera, t_mlx *mlx);
 // draw.c
 void draw_segment(t_mlx *mlx, t_pixel start, t_pixel end);
+void test_line_drawing(t_mlx *mlx);
 
 // proyec.c
 int interpolColor(int height, int z_range[2]);
@@ -54,6 +55,7 @@ int realloc_t_point(t_point ***coors, int rows, int ncols);
 int malloc_mesh(t_pixel ***mesh, int rows, int *cols);
 // free.c
 void ft_free_map(t_map *map);
+void free_mesh(t_pixel ***mesh, t_map *map);
 
 // utils.c
 int ft_atoi_base(char *str, char *base);

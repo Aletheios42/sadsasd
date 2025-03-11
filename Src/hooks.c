@@ -1,4 +1,3 @@
-
 #include "../Inc/fdf.h"
 
 int handle_key_events(int keycode, t_fdf *fdf) {

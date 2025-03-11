@@ -1,6 +1,13 @@
 
 #include "../Inc/fdf.h"
 
+void free_mesh(t_pixel ***mesh, t_map *map) {
+  for (int i = 0; i < map->rows; i++) {
+    free((*mesh)[i]);
+  }
+  free((*mesh));
+}
+
 void ft_free_map(t_map *map) {
   int i;
 

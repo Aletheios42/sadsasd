@@ -1,5 +1,13 @@
 #include "../Inc/fdf.h"
 
+void test_line_drawing(t_mlx *mlx) {
+  t_pixel start = {0, 0, 0xFF0000};   // Rojo
+  t_pixel end = {500, 400, 0x00FF00}; // Verde
+
+  draw_segment(mlx, start, end);
+  mlx_put_image_to_window(mlx->mlx, mlx->win, mlx->img, 0, 0);
+}
+
 void bresenham(t_bresenham *b, t_pixel start, t_pixel end) {
   b->x0 = start.x;
   b->y0 = start.y;
