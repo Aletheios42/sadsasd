@@ -25,8 +25,6 @@ int main(int ac, char **av) {
 
   // Hook para user-input
   mlx_hook(mlx.win, 2, 1L << 0, handle_key_events, &fdf);
-  // Hook para cerrar la ventana
-  mlx_key_hook(mlx.win, handle_keypress, &camera);
   mlx_loop(mlx.mlx);
   return (0);
 }

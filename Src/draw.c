@@ -30,7 +30,8 @@ void draw_segment(t_mlx *mlx, t_pixel start, t_pixel end) {
   while (1) {
     // Dibuja el pixel actual si está dentro de los límites de la ventana
     if (b.x0 >= 0 && b.x0 < WIN_WIDTH && b.y0 >= 0 && b.y0 < WIN_HEIGHT) {
-      my_mlx_pixel_put(mlx, b.x0, b.y0, start.color);
+      my_mlx_pixel_put(mlx, b.x0, b.y0,
+                       start.color); /* hacer gradiente en vez de start.colot*/
     }
 
     // Condición de salida: llegamos al punto final

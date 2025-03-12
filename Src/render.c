@@ -122,14 +122,20 @@ int render(t_map *map, t_cam *camera, t_mlx *mlx) {
   print_original_map(*map);
   malloc_mesh(&mesh, map->rows, map->cols);
   apply_perspective(&mesh, camera, map);
+  printf("apply_perspective Result:\n");
+  print_projected_map(mesh, *map);
   scale_and_center_mesh(&mesh, map);
+  printf("scale_and_center_mesh Result:\n");
+  print_projected_map(mesh, *map);
   apply_cam_to_mesh(&mesh, camera, map);
+  printf("apply_cam_to_mesh Result:\n");
   print_projected_map(mesh, *map);
 
   for (i = 0; i < map->rows; i++) {
     for (j = 0; j < map->cols[i] - 1; j++) {
       draw_segment(mlx, mesh[i][j], mesh[i][j + 1]);
     }
+    mesh[i][j].color += 0xFF;
   }
 
   for (j = 0; j < map->cols[0]; j++) {
@@ -137,6 +143,7 @@ int render(t_map *map, t_cam *camera, t_mlx *mlx) {
       if (j < map->cols[i] && j < map->cols[i + 1])
         draw_segment(mlx, mesh[i][j], mesh[i + 1][j]);
     }
+    mesh[i][j].color += 0xFF;
   }
   mlx_put_image_to_window(mlx->mlx, mlx->win, mlx->img, 0, 0);
   free_mesh(&mesh, map);

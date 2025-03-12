@@ -1,6 +1,9 @@
 #ifndef STRUCTS_H
 #define STRUCTS_H
 
+#define Middle_X 450
+#define Middle_Y 300
+
 typedef struct s_map t_map;
 
 typedef struct s_pixel {

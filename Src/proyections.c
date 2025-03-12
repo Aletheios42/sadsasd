@@ -39,8 +39,8 @@ int interpolColor(int height, int z_range[2]) {
 // Proyección isométrica con valores precisos
 t_pixel proj_iso(t_point point, int scale_z, int z_range[2]) {
   t_pixel pixel_to_draw;
-  const float cos30 = 0.866025404;
-  const float sin30 = 0.5;
+  const float cos30 = 0.866025404; // cos(30°) precalculado
+  const float sin30 = 0.5;         // sin(30°) precalculado
 
   // Aplicar la proyección isométrica
   pixel_to_draw.x = (int)((point.x - point.y) * cos30);
