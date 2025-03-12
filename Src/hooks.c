@@ -47,6 +47,8 @@ int handle_key_events(int keycode, t_fdf *fdf) {
     fdf->cam->projection = 1; // Circular
   else if (keycode == NUMKEY_3)
     fdf->cam->projection = 2; // Orthogonal
+  else if (keycode == NUMKEY_4)
+    fdf->cam->projection = 3; // Orthogonal
 
   render(fdf->map, fdf->cam, fdf->mlx);
   return (0);

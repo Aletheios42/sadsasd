@@ -36,18 +36,32 @@ int interpolColor(int height, int z_range[2]) {
   return (r << 16) | (g << 8) | b;
 }
 
-// Proyección isométrica con valores precisos
 t_pixel proj_iso(t_point point, int scale_z, int z_range[2]) {
   t_pixel pixel_to_draw;
-  const float cos30 = 0.866025404; // cos(30°) precalculado
-  const float sin30 = 0.5;         // sin(30°) precalculado
 
-  // Aplicar la proyección isométrica
-  pixel_to_draw.x = (int)((point.x - point.y) * cos30);
-  pixel_to_draw.y =
-      (int)((point.x + point.y) * sin30) - (point.height * scale_z);
+  // Ángulo base para la proyección isométrica (normalmente 30°)
+  const float alpha = M_PI / 6; // 30 grados en radianes
 
-  // Asignar color
+  // Aplicamos escala a la altura
+  float z = point.height * scale_z;
+
+  // Calculamos los ángulos necesarios
+  float cos_a = cos(alpha);
+  float sin_a = sin(alpha);
+  float cos_a_plus_120 = cos(alpha + 2 * M_PI / 3);  // cos(α+120°)
+  float sin_a_plus_120 = sin(alpha + 2 * M_PI / 3);  // sin(α+120°)
+  float cos_a_minus_120 = cos(alpha - 2 * M_PI / 3); // cos(α-120°)
+  float sin_a_minus_120 = sin(alpha - 2 * M_PI / 3); // sin(α-120°)
+
+  // Aplicamos la fórmula de proyección isométrica
+  float u = point.x * cos_a + point.y * cos_a_plus_120 + z * cos_a_minus_120;
+  float v = point.x * sin_a + point.y * sin_a_plus_120 + z * sin_a_minus_120;
+
+  // Redondeamos para mantener continuidad
+  pixel_to_draw.x = round(u);
+  pixel_to_draw.y = round(v);
+
+  // Asignamos color
   if (point.native) {
     pixel_to_draw.color = point.color;
   } else {
@@ -55,9 +69,24 @@ t_pixel proj_iso(t_point point, int scale_z, int z_range[2]) {
   }
 
   return pixel_to_draw;
-}
+} // Proyección circular
+//
+t_pixel test_proj(t_point point, int scale_z, int z_range[2]) {
+  t_pixel pixel_to_draw;
+  (void)scale_z;
+  (void)z_range;
 
-// Proyección circular
+  pixel_to_draw.x = point.x * 40;
+  pixel_to_draw.y = point.y * 40;
+
+  if (point.native) {
+    pixel_to_draw.color = point.color;
+  } else {
+    pixel_to_draw.color = interpolColor(point.height, z_range);
+  }
+  return pixel_to_draw;
+} // Proyección circular
+
 t_pixel proj_circular(t_point point, int scale_z, int z_range[2]) {
   t_pixel pixel_to_draw;
 
@@ -86,7 +115,7 @@ t_pixel proj_orthogonal(t_point point, int scale_z, int z_range[2]) {
 
   // Mantener coordenada x y ajustar y según la altura
   pixel_to_draw.x = point.x;
-  pixel_to_draw.y = point.y - (point.height * scale_z);
+  pixel_to_draw.y = point.y - (point.height * 0.2 * scale_z);
 
   // Asignar color
   if (point.native) {

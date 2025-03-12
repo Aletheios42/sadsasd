@@ -73,9 +73,9 @@ int parser(t_map *map, char *map_file) {
     i = -1;
     while (++i < map->cols[map->rows]) {
       if (i == 0)
-        map->coors[map->rows][i] = get_tok(line, map->rows, i);
+        map->coors[map->rows][i] = get_tok(line, i, map->rows);
       else
-        map->coors[map->rows][i] = get_tok(NULL, map->rows, i);
+        map->coors[map->rows][i] = get_tok(NULL, i, map->rows);
     }
     map->rows++;
     free(line);

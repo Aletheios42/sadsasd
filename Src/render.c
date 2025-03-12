@@ -6,12 +6,8 @@ void apply_perspective(t_pixel ***mesh, t_cam *camera, t_map *map) {
   int i, j;
 
   t_pixel (*perspectives_array[])(t_point point, int z_scale,
-                                  int z_range[2]) = {proj_iso, proj_circular,
-                                                     proj_orthogonal};
-
-  if (camera->projection < 0 || camera->projection > 2) {
-    camera->projection = 0; // Default to isometric if invalid
-  }
+                                  int z_range[2]) = {
+      test_proj, proj_iso, proj_circular, proj_orthogonal};
 
   for (i = 0; i < map->rows; i++) {
     for (j = 0; j < map->cols[i]; j++) {
@@ -25,7 +21,7 @@ void apply_perspective(t_pixel ***mesh, t_cam *camera, t_map *map) {
 void scale_and_center_mesh(t_pixel ***mesh, t_map *map) {
   int i, j;
   float x_min = FLT_MAX, y_min = FLT_MAX;
-  float x_max = -FLT_MAX, y_max = -FLT_MAX; // Corregido para máximos
+  float x_max = -FLT_MAX, y_max = -FLT_MAX;
 
   // Encontrar los límites de la malla
   for (i = 0; i < map->rows; i++) {
@@ -83,7 +79,7 @@ void scale_and_center_mesh(t_pixel ***mesh, t_map *map) {
     for (j = 0; j < map->cols[i]; j++) {
       // Escalar y trasladar
       (*mesh)[i][j].x =
-          ((*mesh)[i][j].x - x_min) * scale_factor + center_offset_x;
+          (((*mesh)[i][j].x - x_min) * scale_factor + center_offset_x);
       (*mesh)[i][j].y =
           ((*mesh)[i][j].y - y_min) * scale_factor + center_offset_y;
     }
@@ -115,7 +111,7 @@ void apply_cam_to_mesh(t_pixel ***mesh, t_cam *camera, t_map *map) {
 }
 
 int render(t_map *map, t_cam *camera, t_mlx *mlx) {
-  int i, j;
+  int x, y;
   t_pixel **mesh;
 
   refresh_frame(mlx);
@@ -128,22 +124,14 @@ int render(t_map *map, t_cam *camera, t_mlx *mlx) {
   printf("scale_and_center_mesh Result:\n");
   print_projected_map(mesh, *map);
   apply_cam_to_mesh(&mesh, camera, map);
-  printf("apply_cam_to_mesh Result:\n");
-  print_projected_map(mesh, *map);
 
-  for (i = 0; i < map->rows; i++) {
-    for (j = 0; j < map->cols[i] - 1; j++) {
-      draw_segment(mlx, mesh[i][j], mesh[i][j + 1]);
+  for (y = 0; y < map->rows; y++) {
+    for (x = 0; x < map->cols[y]; x++) {
+      if (y < map->rows - 1)
+        draw_segment(mlx, mesh[y][x], mesh[y + 1][x]);
+      if (x < map->cols[y] - 1)
+        draw_segment(mlx, mesh[y][x], mesh[y][x + 1]);
     }
-    mesh[i][j].color += 0xFF;
-  }
-
-  for (j = 0; j < map->cols[0]; j++) {
-    for (i = 0; i < map->rows - 1; i++) {
-      if (j < map->cols[i] && j < map->cols[i + 1])
-        draw_segment(mlx, mesh[i][j], mesh[i + 1][j]);
-    }
-    mesh[i][j].color += 0xFF;
   }
   mlx_put_image_to_window(mlx->mlx, mlx->win, mlx->img, 0, 0);
   free_mesh(&mesh, map);

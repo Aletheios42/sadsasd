@@ -36,6 +36,7 @@ void test_line_drawing(t_mlx *mlx);
 // proyec.c
 int interpolColor(int height, int z_range[2]);
 t_pixel proj_iso(t_point point, int z_scale, int z_range[2]);
+t_pixel test_proj(t_point point, int z_scale, int z_range[2]);
 t_pixel proj_circular(t_point point, int z_scale, int z_range[2]);
 t_pixel proj_orthogonal(t_point point, int z_scale, int z_range[2]);
 
