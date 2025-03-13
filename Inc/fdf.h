@@ -54,6 +54,14 @@ void init_fdf(t_fdf *fdf, t_map *map, t_cam *cam, t_mlx *mlx);
 int realloc_cols(char *line, int **col, int rows);
 int realloc_t_point(t_point ***coors, int rows, int ncols);
 int malloc_mesh(t_pixel ***mesh, int rows, int *cols);
+
+// rotate.c
+// Add to fdf.h
+void rotate_mesh(t_pixel ***mesh, t_cam *camera, t_map *map);
+void rotate_x(t_pixel *pixel, double angle);
+void rotate_y(t_pixel *pixel, double angle);
+void rotate_z(t_pixel *pixel, double angle);
+
 // free.c
 void ft_free_map(t_map *map);
 void free_mesh(t_pixel ***mesh, t_map *map);

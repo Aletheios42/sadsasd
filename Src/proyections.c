@@ -41,8 +41,8 @@ t_pixel proj_iso(t_point point, int scale_z, int z_range[2]) {
 
   // Proyección isométrica estándar (ángulos de 30°)
   // Factores: cos(30°) = 0.866, sin(30°) = 0.5
-  pixel_to_draw.x = (point.x - point.y) * 0.866;
-  pixel_to_draw.y = (point.x + point.y) * 0.5 - (point.height * scale_z);
+  pixel_to_draw.x = round((point.x - point.y) * 0.866);
+  pixel_to_draw.y = round((point.x + point.y) * 0.5 - (point.height * scale_z));
 
   // Asignamos color
   if (point.native) {
@@ -52,23 +52,9 @@ t_pixel proj_iso(t_point point, int scale_z, int z_range[2]) {
   }
 
   return pixel_to_draw;
-} // Proyección circular
-//
-t_pixel test_proj(t_point point, int scale_z, int z_range[2]) {
-  t_pixel pixel_to_draw;
-  (void)scale_z;
-  (void)z_range;
+}
 
-  pixel_to_draw.x = point.x * 40;
-  pixel_to_draw.y = point.y * 40;
-
-  if (point.native) {
-    pixel_to_draw.color = point.color;
-  } else {
-    pixel_to_draw.color = interpolColor(point.height, z_range);
-  }
-  return pixel_to_draw;
-} // Proyección circular
+// Proyección circular
 
 t_pixel proj_circular(t_point point, int scale_z, int z_range[2]) {
   t_pixel pixel_to_draw;

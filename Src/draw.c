@@ -60,6 +60,7 @@ void draw_segment(t_mlx *mlx, t_pixel start, t_pixel end) {
   int e2;
   int color;
   // Inicializa el algoritmo de Bresenham
+
   bresenham(&b, start, end);
 
   while (1) {

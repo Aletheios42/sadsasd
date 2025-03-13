@@ -7,7 +7,7 @@ void apply_perspective(t_pixel ***mesh, t_cam *camera, t_map *map) {
 
   t_pixel (*perspectives_array[])(t_point point, int z_scale,
                                   int z_range[2]) = {proj_iso, proj_orthogonal,
-                                                     test_proj, proj_circular};
+                                                     proj_circular};
 
   for (i = 0; i < map->rows; i++) {
     for (j = 0; j < map->cols[i]; j++) {
@@ -118,12 +118,16 @@ int render(t_map *map, t_cam *camera, t_mlx *mlx) {
   refresh_frame(mlx);
   print_original_map(*map);
   malloc_mesh(&mesh, map->rows, map->cols);
+
   apply_perspective(&mesh, camera, map);
   printf("apply_perspective Result:\n");
   print_projected_map(mesh, *map);
+
+  rotate_mesh(&mesh, camera, map);
+
   place_objects_in_window(&mesh, map);
-  /*printf("scale_and_center_mesh Result:\n");*/
-  /*print_projected_map(mesh, *map);*/
+  printf("scale_and_center_mesh Result:\n");
+  print_projected_map(mesh, *map);
   apply_cam_to_mesh(&mesh, camera, map);
 
   for (y = 0; y < map->rows; y++) {

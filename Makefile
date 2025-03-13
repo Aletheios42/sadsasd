@@ -36,6 +36,7 @@ SRC_FILES   = main.c 			\
 		render.c		\
 		draw.c			\
 		free.c			\
+		rotate.c		\
 		proyections.c		\
 		hooks.c			\
 		print.c			\
