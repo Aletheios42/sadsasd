@@ -25,6 +25,8 @@ int main(int ac, char **av) {
 
   // Hook para user-input
   mlx_hook(mlx.win, 2, 1L << 0, handle_key_events, &fdf);
+  mlx_hook(mlx.win, 17, 1, close_window, &fdf);
+
   mlx_loop(mlx.mlx);
   return (0);
 }

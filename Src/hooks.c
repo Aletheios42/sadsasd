@@ -1,7 +1,7 @@
 #include "../Inc/fdf.h"
 
 int handle_key_events(int keycode, t_fdf *fdf) {
-  if (keycode == KEY_ESC)
+  if (!keycode || keycode == KEY_ESC)
     close_window(fdf->mlx);
 
   // Camera rotation
@@ -42,13 +42,13 @@ int handle_key_events(int keycode, t_fdf *fdf) {
 
   // Projection change
   else if (keycode == NUMKEY_1)
-    fdf->cam->projection = 0; // Isometric
+    fdf->cam->projection = 0;
   else if (keycode == NUMKEY_2)
-    fdf->cam->projection = 1; // Circular
+    fdf->cam->projection = 1;
   else if (keycode == NUMKEY_3)
-    fdf->cam->projection = 2; // Orthogonal
+    fdf->cam->projection = 2;
   else if (keycode == NUMKEY_4)
-    fdf->cam->projection = 3; // Orthogonal
+    fdf->cam->projection = 3;
 
   render(fdf->map, fdf->cam, fdf->mlx);
   return (0);
