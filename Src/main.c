@@ -7,7 +7,8 @@ int main(int ac, char **av) {
   t_cam camera;
 
   if (ac != 2)
-    return (ft_putstr_fd("Usage Instrctions: ./fdf <map_file.fdf>\n", 2), 1);
+    return (ft_putstr_fd("Usage Instrctions: ./fdf <maps/map_file.fdf>\n", 2),
+            1);
 
   ft_memset(&map, 0, sizeof(t_map));
   if (parser(&map, av[1]) == -1)

@@ -1,7 +1,7 @@
 #include "../Inc/fdf.h"
 
 int handle_key_events(int keycode, t_fdf *fdf) {
-  if (!keycode || keycode == KEY_ESC)
+  if (keycode == KEY_ESC)
     close_window(fdf->mlx);
 
   // Camera rotation
@@ -29,16 +29,16 @@ int handle_key_events(int keycode, t_fdf *fdf) {
     fdf->cam->offset[0] += 10;
 
   // Zoom
-  else if (keycode == KEY_PLUS)
+  else if (keycode == KEY_SPACE)
     fdf->cam->scale_factor *= 1.1;
   else if (keycode == KEY_MINUS)
     fdf->cam->scale_factor *= 0.9;
 
   // Z-scale
   else if (keycode == KEY_Q)
-    fdf->cam->scale_z += 0.1;
+    fdf->cam->scale_z += 0.3;
   else if (keycode == KEY_E)
-    fdf->cam->scale_z -= 0.1;
+    fdf->cam->scale_z -= 0.3;
 
   // Projection change
   else if (keycode == NUMKEY_1)

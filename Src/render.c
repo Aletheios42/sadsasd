@@ -122,8 +122,8 @@ int render(t_map *map, t_cam *camera, t_mlx *mlx) {
   printf("apply_perspective Result:\n");
   print_projected_map(mesh, *map);
   place_objects_in_window(&mesh, map);
-  printf("scale_and_center_mesh Result:\n");
-  print_projected_map(mesh, *map);
+  /*printf("scale_and_center_mesh Result:\n");*/
+  /*print_projected_map(mesh, *map);*/
   apply_cam_to_mesh(&mesh, camera, map);
 
   for (y = 0; y < map->rows; y++) {

@@ -39,27 +39,10 @@ int interpolColor(int height, int z_range[2]) {
 t_pixel proj_iso(t_point point, int scale_z, int z_range[2]) {
   t_pixel pixel_to_draw;
 
-  // Ángulo base para la proyección isométrica (normalmente 30°)
-  const float alpha = M_PI / 6; // 30 grados en radianes
-
-  // Aplicamos escala a la altura
-  float z = point.height * scale_z;
-
-  // Calculamos los ángulos necesarios
-  float cos_a = cos(alpha);
-  float sin_a = sin(alpha);
-  float cos_a_plus_120 = cos(alpha + 2 * M_PI / 3);  // cos(α+120°)
-  float sin_a_plus_120 = sin(alpha + 2 * M_PI / 3);  // sin(α+120°)
-  float cos_a_minus_120 = cos(alpha - 2 * M_PI / 3); // cos(α-120°)
-  float sin_a_minus_120 = sin(alpha - 2 * M_PI / 3); // sin(α-120°)
-
-  // Aplicamos la fórmula de proyección isométrica
-  float u = point.x * cos_a + point.y * cos_a_plus_120 + z * cos_a_minus_120;
-  float v = point.x * sin_a + point.y * sin_a_plus_120 + z * sin_a_minus_120;
-
-  // Redondeamos para mantener continuidad
-  pixel_to_draw.x = round(u);
-  pixel_to_draw.y = round(v);
+  // Proyección isométrica estándar (ángulos de 30°)
+  // Factores: cos(30°) = 0.866, sin(30°) = 0.5
+  pixel_to_draw.x = (point.x - point.y) * 0.866;
+  pixel_to_draw.y = (point.x + point.y) * 0.5 - (point.height * scale_z);
 
   // Asignamos color
   if (point.native) {

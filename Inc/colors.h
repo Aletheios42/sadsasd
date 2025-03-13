@@ -1,11 +1,11 @@
 #ifndef COLORS_H
 #define COLORS_H
 #ifndef MIN_COLOR
-#define MIN_COLOR C_BLUE // o el color que prefieras para el mínimo
+#define MIN_COLOR C_WHITE // o el color que prefieras para el mínimo
 #endif
 
 #ifndef MAX_COLOR
-#define MAX_COLOR C_WHITE // o el color que prefieras para el máximo
+#define MAX_COLOR C_PINK // o el color que prefieras para el máximo
 #endif
 
 #define C_WHITE 0xffffff

@@ -9,7 +9,7 @@ void print_int_array(int *arr, int size) {
   for (int i = 0; i < size; i++) {
     printf("%d ", arr[i]);
   }
-  printf("\n");
+  printf("\n\n");
 }
 
 void print_original_map(t_map map) {
@@ -29,7 +29,7 @@ void print_original_map(t_map map) {
     while (++j < map.cols[i])
       printf("%i,0x%06X ", map.coors[i][j].height,
              (unsigned)map.coors[i][j].color);
-    printf("\n");
+    printf("\n\n");
   }
 }
 
@@ -42,6 +42,6 @@ void print_projected_map(t_pixel **mesh, t_map map) {
     while (++j < map.cols[i])
       printf("%i,%i, 0x%06X ", mesh[i][j].x, mesh[i][j].y,
              (unsigned)mesh[i][j].color);
-    printf("\n");
+    printf("\n\n");
   }
 }
